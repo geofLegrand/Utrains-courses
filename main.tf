@@ -7,7 +7,7 @@ resource "aws_instance" "web" {
   #vp = [data.aws_security_groups.my_secgroups.ids[0]]
   user_data ="${file("userData.sh")}"
   tags = {
-    Name = "myServer"
+    Name = "my-Server"
   }
 }
 
