@@ -5,7 +5,13 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = [data.aws_security_groups.my_secgroups.ids[0]]
   key_name = aws_key_pair.ec2_key.key_name
   #vp = [data.aws_security_groups.my_secgroups.ids[0]]
-  user_data ="${file("userData.sh")}"
+  user_data = <<-EOT
+        #!/bin/bash
+        sudo apt update -y
+        sudo apt install apache2 -y
+        echo '<h1>This is deployed by Kossi </h1>' | sudo tee /var/www/html/index.html
+    EOT
+  #"${file("userData.sh")}"
   tags = {
     Name = "my-Server"
   }
